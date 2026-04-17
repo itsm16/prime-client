@@ -48,13 +48,15 @@ function CreateModal() {
   useEffect(() => {
     if (!updateData) return
 
-    reset({
-      role: updateData?.data?.data?.role ?? "",
-      company: updateData?.data?.data?.company ?? "",
-      location: updateData?.data?.data?.location ?? "",
-      description: updateData?.data?.data?.description ?? ""
-    })
-  }, [updateData, reset])
+    if(updateData?.data?.data && type === "update"){
+      reset({
+        role: updateData?.data?.data?.role ?? "",
+        company: updateData?.data?.data?.company ?? "",
+        location: updateData?.data?.data?.location ?? "",
+        description: updateData?.data?.data?.description ?? ""
+      })
+    }
+  }, [updateData, reset, type])
 
   async function onSubmit(data: z.infer<typeof jobSchema>) {
     if (type === "create") {
@@ -69,7 +71,12 @@ function CreateModal() {
 
   const closeModal = () => {
     setModalState({ modalState: false, type: "none" })
-    reset()
+    reset({
+      role: "",
+      company: "",
+      location: "",
+      description: ""
+    })
   }
 
   return (
