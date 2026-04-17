@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router"
+import { Route, Routes } from "react-router"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Jobs from "./pages/Jobs"
@@ -13,7 +13,6 @@ import { useEffect } from "react"
 import useUserStore from "./store/userStore"
 
 function App() {
-  const navigate = useNavigate()
   const { setUserState } = useUserStore(state => state)
 
   const { data, isError } = useQuery({
@@ -25,10 +24,11 @@ function App() {
   const extracted = data?.data
 
   useEffect(() => {
-    if (isError) {
-      navigate("/login")
-    }
+    if(isError) return
+
+    if(data){
     setUserState(extracted?.data)
+    }
   }, [data, isError])
 
   return (

@@ -23,8 +23,8 @@ const deleted = (url: string) => {
     return res
 }
 
-const registerUser = ({email, password}: {email:string, password: string}) =>{
-    const res = post("/auth/regsiter", {email, password})
+const registerUser = ({name, email, password}: {name:string, email:string, password: string}) =>{
+    const res = post("/auth/register", {name, email, password})
     return res
 }
 
